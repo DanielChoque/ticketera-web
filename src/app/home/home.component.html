@@ -1,0 +1,39 @@
+<div align='center' style="background:rgb(219, 218, 218);" hidden>
+    <br>
+    <div *ngFor='let item of initialTicketsP'>
+        <tr><button class="boton-personalizado-2 fuente">{{item.descripcion}}</button></tr>
+    </div>
+    <br>
+</div>
+
+<div style="margin-left: 5px; background:#9110251c;">
+    <br>
+    <tr> 
+        <td><span class="fuente">NIT/CI </span></td> 
+        <td><input type="number" name="" id=""></td>
+    </tr>
+    <tr>
+        <td><span class="fuente">Nombre </span></td>
+        <td><input type="text" name="" id=""></td>
+    </tr>
+    <br>
+</div>
+<div align='center' style="background: #911025;">
+    <span class="fuente" style="color: white; font-size: 25px;">Trámite Primario</span>
+</div>
+
+<div *ngFor='let item of initialItem' style="margin-left: 5px; background:#2114941c;">
+    <div style="margin-left: 10px">
+        <input type="checkbox" name="" id="" (click)="subTramites(item.id_tramite)"><span class="fuente">{{item.nombre_tramite}} </span> 
+    </div>                        
+</div> 
+
+<div align='center' style="background:navy;">
+    <span class="fuente" style="color: white; font-size: 20px;">Trámite Secundario</span>
+</div>
+
+<div *ngFor='let item of initialSubTramitesAux' style="margin-left: 5px; background:#2114941c;">
+    <div style="margin-left: 10px">
+        <input type="checkbox" name="" id="" ><span class="fuente">{{item.nombre_tramite}} </span> 
+    </div>                        
+</div>
