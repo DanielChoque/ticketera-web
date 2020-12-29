@@ -1,4 +1,4 @@
-<div align='center' style="background:rgb(219, 218, 218);" hidden>
+<div align='center' style="background:rgb(219, 218, 218);" >
     <br>
     <div *ngFor='let item of initialTicketsP'>
         <tr><button class="boton-personalizado-2 fuente">{{item.descripcion}}</button></tr>
@@ -22,9 +22,9 @@
     <span class="fuente" style="color: white; font-size: 25px;">Trámite Primario</span>
 </div>
 
-<div *ngFor='let item of initialItem' style="margin-left: 5px; background:#2114941c;">
+<div *ngFor='let item of initialTramite' style="margin-left: 5px; background:#2114941c;">
     <div style="margin-left: 10px">
-        <input type="checkbox" name="" id="" (click)="subTramites(item.id_tramite)"><span class="fuente">{{item.nombre_tramite}} </span> 
+        <input type="checkbox" name="" id="" (click)="subTramites(item.id_tramite)"><span class="fuente">{{item.descripcion}} </span> 
     </div>                        
 </div> 
 
@@ -32,8 +32,8 @@
     <span class="fuente" style="color: white; font-size: 20px;">Trámite Secundario</span>
 </div>
 
-<div *ngFor='let item of initialSubTramitesAux' style="margin-left: 5px; background:#2114941c;">
+<div *ngFor='let item of initialSubTramite' style="margin-left: 5px; background:#2114941c;">
     <div style="margin-left: 10px">
-        <input type="checkbox" name="" id="" ><span class="fuente">{{item.nombre_tramite}} </span> 
+        <input type="checkbox" name="" id="" ><span class="fuente">{{item.descripcion}} </span> 
     </div>                        
 </div>
