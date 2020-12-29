@@ -1,39 +1,55 @@
-<div align='center' style="background:rgb(219, 218, 218);" >
+<div align='center' style="background:rgb(219, 218, 218);" >    
     <br>
-    <div *ngFor='let item of initialTicketsP'>
-        <tr><button class="boton-personalizado-2 fuente">{{item.descripcion}}</button></tr>
+
+    <div class="box">
+        <div class="left">
+            <div class="content">
+                <div *ngFor='let item of initialTicketN'>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.descripcion)">{{item.descripcion}} - {{item.cod}}</button></tr>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="content">
+                <div *ngFor='let item of initialTicketP'>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.descripcion)">{{item.descripcion}}</button></tr>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
 </div>
 
-<div style="margin-left: 5px; background:#9110251c;">
-    <br>
-    <tr> 
-        <td><span class="fuente">NIT/CI </span></td> 
-        <td><input type="number" name="" id=""></td>
-    </tr>
-    <tr>
-        <td><span class="fuente">Nombre </span></td>
-        <td><input type="text" name="" id=""></td>
-    </tr>
-    <br>
-</div>
-<div align='center' style="background: #911025;">
-    <span class="fuente" style="color: white; font-size: 25px;">Trámite Primario</span>
-</div>
-
-<div *ngFor='let item of initialTramite' style="margin-left: 5px; background:#2114941c;">
-    <div style="margin-left: 10px">
-        <input type="checkbox" name="" id="" (click)="subTramites(item.id_tramite)"><span class="fuente">{{item.descripcion}} </span> 
-    </div>                        
-</div> 
-
-<div align='center' style="background:navy;">
-    <span class="fuente" style="color: white; font-size: 20px;">Trámite Secundario</span>
-</div>
-
-<div *ngFor='let item of initialSubTramite' style="margin-left: 5px; background:#2114941c;">
-    <div style="margin-left: 10px">
-        <input type="checkbox" name="" id="" ><span class="fuente">{{item.descripcion}} </span> 
-    </div>                        
+<div hidden>
+    <div style="margin-left: 5px; background:#9110251c;">
+        <br>
+        <tr> 
+            <td><span class="fuente">NIT/CI </span></td> 
+            <td><input type="number" name="" id=""></td>
+        </tr>
+        <tr>
+            <td><span class="fuente">Nombre </span></td>
+            <td><input type="text" name="" id=""></td>
+        </tr>
+        <br>
+    </div>
+    <div align='center' style="background: #1475b8;">
+        <span class="fuente" style="color: white; font-size: 25px;">Trámite Primario</span>
+    </div>
+    
+    <div *ngFor='let item of initialTramite' style="margin-left: 5px; background:#2114941c;">
+        <div style="margin-left: 10px">
+            <input type="checkbox" name="" id="" (click)="subTramites(item.id_tramite)"><span class="fuente">{{item.descripcion}} </span> 
+        </div>                        
+    </div> 
+    
+    <div align='center' style="background:navy;">
+        <span class="fuente" style="color: white; font-size: 20px;">Trámite Secundario</span>
+    </div>
+    
+    <div *ngFor='let item of initialSubTramite' style="margin-left: 5px; background:#2114941c;">
+        <div style="margin-left: 10px">
+            <input type="checkbox" name="" id="" ><span class="fuente">{{item.descripcion}} </span> 
+        </div>                        
+    </div>
 </div>

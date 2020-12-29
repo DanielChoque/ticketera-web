@@ -7,7 +7,7 @@
     padding-bottom:15px;
     padding-left:40px;
     padding-right:40px;
-    background-color:#911025;
+    background-color:#004884;
     border-color: #d8d8d8;
     border-width: 3px;
     border-style: solid;
@@ -104,3 +104,28 @@
     -webkit-border-radius:9px;
     padding: 10px; width: 100%; float:right;background: aliceblue;
   }
+
+  .box {
+    overflow: hidden;
+}
+
+.content {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0 20px;
+    text-align: justify;
+}
+
+.left {
+    float: left;
+    width: 50%;
+}
+
+.left .content {
+    border-right: 5px solid #ffffff  ;
+}
+
+.right {
+    float: right;
+    width: 50%;
+}

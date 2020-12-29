@@ -12,22 +12,19 @@ import { Resultado } from '../model/resultado';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  //initialItem: Array<Tramite> =new Array<Tramite>();
-  //initialSubTramites: Array<Tramite> =new Array<Tramite>();
-  //initialSubTramitesAux: Array<Tramite> =new Array<Tramite>();
-  //initialTicketsA: Array<Ticket> =new Array<Ticket>();
-  initialTicket: Array<Ticket> =new Array<Ticket>();
-  
+
+  initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();
   initialTramite:Array<Tramite> = new Array<Tramite>();
   respuesta: Resultado
 
+  initialTicketN: Array<Ticket> =new Array<Ticket>(); 
+  initialTicketP: Array<Ticket> =new Array<Ticket>(); 
+
+  i=0;
   constructor(private servItemService:ConectionService) { }
 
   ngOnInit() {
-    //this.consultaItemStar()
-    //this.consultarTicketStar()   
-    //this.consultarTramitesStar()
     this.consultaSubTramite() 
     this.consultarTramite()
     this.consultarTicket()
@@ -64,8 +61,26 @@ export class HomeComponent implements OnInit {
         this.respuesta=JSON.parse(resp);
         var ddd=JSON.parse(resp)
         this.initialTicket =ddd
+        this.llenar()
       },
       error=>console.log(error)
     )
   }
+  llenar(){
+    this.initialTicket
+    this.initialTicket.forEach(element => {
+      if(element.cod.indexOf("X")==-1)  
+        this.initialTicketN.push(element)
+      else
+        this.initialTicketP.push(element)
+    });
+  
+  }
+
+  consulta(num){
+    console.log(num)
+
+  }
+
+
 }
