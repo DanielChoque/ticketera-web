@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConectionService } from '../service/conection.service';
 //import { SubTramite } from '../model/tramite';
-import { Tramite,SubTramite,Ticket } from '../model/modelos';
+import { Tramite,SubTramite,Ticket, TipoTramite, Area } from '../model/modelos';
 import { Resultado } from '../model/resultado';
 //import { Ticket } from '../model/ticket';
 
@@ -13,10 +13,14 @@ import { Resultado } from '../model/resultado';
 })
 export class HomeComponent implements OnInit {
 
+  tickethidden:boolean=false
+  
   initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();
   initialTramite:Array<Tramite> = new Array<Tramite>();
   respuesta: Resultado
+
+  initialTipoTramite: Array<TipoTramite> =new Array<TipoTramite>();  
 
   initialTicketN: Array<Ticket> =new Array<Ticket>(); 
   initialTicketP: Array<Ticket> =new Array<Ticket>(); 
@@ -28,6 +32,7 @@ export class HomeComponent implements OnInit {
     this.consultaSubTramite() 
     this.consultarTramite()
     this.consultarTicket()
+    this.consultarTipoTramite()
   }
 
   consultaSubTramite(){
@@ -77,10 +82,42 @@ export class HomeComponent implements OnInit {
   
   }
 
+  consultarTipoTramite(){
+    this.servItemService.servTipoTramite().subscribe(
+      res=>{        
+        var resp=JSON.parse(JSON.stringify(res))._body;
+        this.respuesta=JSON.parse(resp);
+        var ddd=JSON.parse(resp)
+        console.log(ddd)
+        this.initialTipoTramite =ddd       
+      },
+      error=>console.log(error)
+    )
+  }
   consulta(num){
     console.log(num)
-
+    this.tickethidden=true
   }
 
+  tareaTicket(acc){
+    console.log(acc)
+    if(acc=="Finalizar")
+      this.tickethidden=false
+    if(acc=="Abandono")
+      this.tickethidden=false
+  }
+  subTramiteLLenar(id){
+    //this.initialSubTramite= []
+    this.initialTipoTramite.forEach(element => {      
+      let areat=Area
+      let re=Resultado
+      areat=element.area
+      if(id==areat.id)
+            
+            console.log(areat)
+      //this.initialSubTramite.push(subTramite)
+    });
+
+  }
 
 }

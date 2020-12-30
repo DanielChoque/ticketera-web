@@ -7,7 +7,7 @@ import { HttpClient, } from '@angular/common/http';
 })
 export class ConectionService {
   public NetWorkUrl="http://10.1.43.39/tiketera/sinapp.servicios/";
-  public url="http://10.1.43.160:8000/"
+  public url="http://127.0.0.1:8000/"
 
   constructor(private http: Http,private httpClient: HttpClient) { }
   option(){
@@ -31,6 +31,10 @@ export class ConectionService {
   }
   servTickets(){
     let url =this.url + "api/1.0/ticket/";
+    return this.http.get(url,this.option());
+  }
+  servTipoTramite(){
+    let url =this.url + "api/1.0/tipotram/";
     return this.http.get(url,this.option());
   }
 }

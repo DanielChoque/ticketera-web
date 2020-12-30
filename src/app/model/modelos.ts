@@ -19,5 +19,18 @@ export class Ticket {
     cod
     descripcion
 }
+
+export class Area {
+    id
+    cod
+    nombre
+}
+
+
 //Relacionados
 
+export class TipoTramite{
+    area = Area
+    tramite = Tramite
+    subTramite = SubTramite
+}
