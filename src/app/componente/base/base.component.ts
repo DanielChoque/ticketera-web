@@ -7,7 +7,10 @@ import { Base } from 'src/app/model/modelos';
   styleUrls: ['./base.component.css']
 })
 export class BaseComponent implements OnInit {
-  initialBase: Array<Base> =new Array<Base>();  
+  initialBase: Array<Base> =new Array<Base>();
+  initialBaseTemp: Array<Base> =new Array<Base>(); 
+  consultaText : string
+  username:string
 
   constructor() { }
 
@@ -15,9 +18,28 @@ export class BaseComponent implements OnInit {
   }
 
   consulta(acc){
+    
     this.initialBase = JSON.parse(localStorage.getItem("base"));
+    var a=this.findMatches(this.consultaText,this.initialBase)
+    this.initialBaseTemp = a
+    //console.log(a)
     //console.log(this.initialBase);
-
+    
   }
+
+  findMatches(wordToSearch, cities) {
+    return cities.filter(place => {
+        const regex = new RegExp(wordToSearch, 'gi');
+        return place.pregunta.match(regex) 
+    })
+  }
+
+  keyPress(event: KeyboardEvent) {
+    //See notes about 'which' and 'key'
+    if (event.keyCode == 13) {
+      this.consulta(this.consultaText)
+    }
+  }
+
 
 }

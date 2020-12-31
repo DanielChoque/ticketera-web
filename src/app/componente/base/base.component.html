@@ -1,7 +1,13 @@
-<p>base works!</p>
-<button (click)=" consulta('Ver')">Ver</button>
-<div *ngFor='let item of initialBase' style="margin-left: 5px; background:#2114941c;">
+<td>
+
+    Escribe tu Consulta
+    <input type="text" name="consultaText" [(ngModel)]="consultaText" id="consultaText" (keypress)="keyPress($event)" >
+    
+    <button class="boton-personalizado-2 fuente" (click)="consulta('Consultar')">Consultar</button>
+</td>
+<div *ngFor='let item of initialBaseTemp' style="margin-left: 5px; background:#2114941c;">
     <div style="margin-left: 10px">
-        <input type="checkbox" name="" id="" ><span class="fuente">{{item.id}} - {{item.respuesta}} </span> 
+        <p>{{item.id}} - {{item.pregunta}}</p>
+        <p>{{item.respuesta}}</p>
     </div>                        
 </div>
