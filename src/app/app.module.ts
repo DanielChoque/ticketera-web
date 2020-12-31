@@ -15,12 +15,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgxTimerModule } from 'ngx-timer';
+import { BaseComponent } from './componente/base/base.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,
