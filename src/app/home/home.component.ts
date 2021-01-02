@@ -13,7 +13,7 @@ import { Resultado } from '../model/resultado';
 })
 export class HomeComponent implements OnInit {
 
-  tickethidden:boolean=true
+  tickethidden:boolean=false
   
   initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();

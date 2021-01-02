@@ -1,11 +1,32 @@
 <div [hidden]=false>
+    <div class="login-page">
+        <div class="form">
+          <form class="register-form">
+            <input type="text" placeholder="Usuario"/>
+            <input type="password" placeholder="Contraseña"/>
+            <input type="text" placeholder="email address"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+          </form>
+          <form class="login-form">
+            <input type="text" placeholder="Usuario"/>
+            <input type="password" placeholder="Contraseña"/>
+            <p>Mantener la sesión iniciada<input name="LoginControl$chkRecordar" type="checkbox" id="LoginControl_chkRecordar"></p> 
+            <button>login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+          </form>
+        </div>
+      </div>   
+</div>
+
+<div [hidden]=false>
     <p>
-        <mat-toolbar color="primary" style="background-color: #1475b8;">
+        <mat-toolbar color="primary" style="background-color: #002d59;">
             <mat-toolbar-row>
             <span>Ticketera Web</span>
             <span class="example-spacer"></span>
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-                <mat-icon>menu</mat-icon>
+                <!--mat-icon>menu</mat-icon-->
             </button>
             </mat-toolbar-row>    
         </mat-toolbar>

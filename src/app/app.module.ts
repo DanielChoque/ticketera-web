@@ -15,6 +15,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
 import { NgxTimerModule } from 'ngx-timer';
 import { BaseComponent } from './componente/base/base.component';
 
@@ -35,6 +36,7 @@ import { BaseComponent } from './componente/base/base.component';
     MatToolbarModule,
     MatIconModule,
     MatTabsModule,
+    MatDialogModule,
     NgxTimerModule,
     HttpClientModule,HttpModule,
     FormsModule,
