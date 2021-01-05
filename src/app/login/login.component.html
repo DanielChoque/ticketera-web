@@ -1,4 +1,4 @@
-<div [hidden]=false>
+<div [hidden]="sesion">
     <div class="login-page">
         <div class="form">
           <form class="register-form">
@@ -9,24 +9,29 @@
             <p class="message">Already registered? <a href="#">Sign In</a></p>
           </form>
           <form class="login-form">
-            <input type="text" placeholder="Usuario"/>
-            <input type="password" placeholder="Contraseña"/>
-            <p>Mantener la sesión iniciada<input name="LoginControl$chkRecordar" type="checkbox" id="LoginControl_chkRecordar"></p> 
-            <button>login</button>
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
+            <input type="text" name="usuario" [(ngModel)]="usuario" id="usuario"  placeholder="Usuario"/>
+            <!--(keypress)="keyPressPass($event)"-->
+            <input type="password" name="password" [(ngModel)]="password" id="password"   placeholder="Contraseña"/>
+            <p [hidden]='errorNP' style="color: red;"> Error de nombre y/o password</p>
+            <!--p>Mantener la sesión iniciada<input name="chkRecordar" type="checkbox" id="LoginControl_chkRecordar" (change)="changeChk($event)" ></p-->
+            <button (click)="login('login')">login</button>
+            <p class="message"> <a href="#">¿Crear una Cuenta?</a></p>
           </form>
         </div>
       </div>   
 </div>
 
-<div [hidden]=false>
+<div [hidden]="!sesion">
     <p>
         <mat-toolbar color="primary" style="background-color: #002d59;">
             <mat-toolbar-row>
-            <span>Ticketera Web</span>
+            <span>Ticketera Web:</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;{{punto.ventanilla.nombre}} - </span>
+            <span>&nbsp;{{punto.usuario.first_name}} {{punto.usuario.last_name}}</span>
             <span class="example-spacer"></span>
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
                 <!--mat-icon>menu</mat-icon-->
+                <p (click)="logout()">Salir</p>
             </button>
             </mat-toolbar-row>    
         </mat-toolbar>
@@ -36,8 +41,8 @@
         <mat-tab label="Inicio" ><app-home></app-home></mat-tab>
         <mat-tab label="Base de Preguntas y Respuestas de la GSCCT" ><app-base></app-base></mat-tab>
         <mat-tab label="Registros" >Content 2</mat-tab>
-        <mat-tab label="Datos" >Content 3</mat-tab>
-        <mat-tab label="Direcciones" >Content 3</mat-tab>
+        <!--mat-tab label="Datos" >Content 3</mat-tab>
+        <mat-tab label="Direcciones" >Content 3</mat-tab-->
     </mat-tab-group>
 </div>
 

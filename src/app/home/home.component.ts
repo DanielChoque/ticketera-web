@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConectionService } from '../service/conection.service';
-//import { SubTramite } from '../model/tramite';
-import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base} from '../model/modelos';
+import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base, TicketArea} from '../model/modelos';
 import { Resultado } from '../model/resultado';
-//import { Ticket } from '../model/ticket';
 
 
 @Component({
@@ -18,9 +16,11 @@ export class HomeComponent implements OnInit {
   initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();
   initialSubTramiteTemp:Array<SubTramite> = new Array<SubTramite>();
-  initialBase: Array<Base> =new Array<Base>();  
+   
 
   initialTramite:Array<Tramite> = new Array<Tramite>();
+  initialTramiteTemp:Array<Tramite> = new Array<Tramite>();
+  arrayTram=[]
   respuesta: Resultado
   vectorT:Array<Vector> = new Array<Vector>();
 
@@ -29,20 +29,19 @@ export class HomeComponent implements OnInit {
 
   initialTicketN: Array<Ticket> =new Array<Ticket>(); 
   initialTicketP: Array<Ticket> =new Array<Ticket>(); 
+  initialTicketArea: Array<TicketArea> =new Array<TicketArea>();
   area:Area=new Area()
   tipoTramite:TipoTramite = new TipoTramite()
   subTramite:SubTramite = new SubTramite()
+  //ngStyle: { [klass: string]: any; }
+  color="red"
 
 
   i=0;
   constructor(private servItemService:ConectionService) { }
 
   ngOnInit() {
-    //this.consultaSubTramite() 
-    this.consultarTramite()
-    this.consultarTicket()
-    this.consultarTipoTramite()
-    this.consultaBase()
+    this.iniciarDatos()
   }
 
   consultaSubTramite(){
@@ -120,8 +119,6 @@ export class HomeComponent implements OnInit {
   }
 
   subTramiteLLenar(id,event){
-    
-    console.log("id:"+id)
     if(event.target.checked==true){      
       this.initialTipoTramite.forEach(element => {  
         if(id==element.tramite.id){
@@ -133,7 +130,6 @@ export class HomeComponent implements OnInit {
     else{
       this.initialSubTramiteTemp = new Array<SubTramite>();
       var aux =this.initialTipoTramiteTemp
-      console.log(aux.length)
       this.initialTipoTramiteTemp = new Array<TipoTramite>();
       aux.forEach(element => {
         if(id!=element.tramite.id){
@@ -144,19 +140,50 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  consultaBase(){
-    this.servItemService.servBase().subscribe(
-      res=>{        
-        var resp=JSON.parse(JSON.stringify(res))._body;        
-        var ddd=JSON.parse(resp)
-        console.log(ddd)
-        this.initialBase = ddd
-        localStorage.setItem('base',JSON.stringify(this.initialBase))
-      },
-      error=>console.log(error)
-    )
+
+  llenarTicket(){
+    this.initialTicketArea=JSON.parse(localStorage.getItem('ticketArea'))
+    this.initialTicketArea.forEach(element => {
+      if(element.ticket.cod.indexOf("X")==-1)  
+        this.initialTicketN.push(element.ticket)
+      else
+        this.initialTicketP.push(element.ticket)
+    });  
   }
 
+  llenarTramite(){
+    this.initialTipoTramite=JSON.parse(localStorage.getItem('TipoTramite'))
+    this.initialTipoTramite.forEach(element => { 
+      this.initialTramiteTemp.push(element.tramite)
+    });
+    this.initialTramite=this.removeDuplicate(this.initialTramiteTemp)
+  }
+  uniqueSet:Array<Tramite>= new Array<Tramite>()
+  removeDuplicate(dupli:Array<Tramite>){
+    const flag={};
+    const unique =[];
+    const uniqueArray =[];
+    dupli.forEach(element => {
+      if(!flag[element.id]){
+        flag[element.id]=true
+        uniqueArray.push(element)
+        unique.push(element)
+      }      
+    });
+    return uniqueArray;
+  }
+c=0
+  colorStyle(id){
+    if(id % 2 == 0) {
+      return {'background-color':'#0505051c'}
+    }
+    else {
+      return {'background-color':'#00000000'}
+    }
+  }
 
-
+  iniciarDatos(){
+    this.llenarTicket()
+    this.llenarTramite()
+  }
 }

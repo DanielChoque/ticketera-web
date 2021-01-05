@@ -23,8 +23,11 @@ export class BaseComponent implements OnInit {
     var a=this.findMatches(this.consultaText,this.initialBase)
     this.initialBaseTemp = a
     //console.log(a)
-    //console.log(this.initialBase);
-    
+    console.log("acc:"+acc);
+    if(acc=="Todo"){
+
+      this.initialBaseTemp = JSON.parse(localStorage.getItem("base"));
+    }    
   }
 
   findMatches(wordToSearch, cities) {

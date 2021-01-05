@@ -1,13 +1,15 @@
 <td>
 
-    Escribe tu Consulta
+    Escribe la Consulta
     <input type="text" name="consultaText" [(ngModel)]="consultaText" id="consultaText" (keypress)="keyPress($event)" >
     
     <button class="boton-personalizado-2 fuente" (click)="consulta('Consultar')">Consultar</button>
+    <button class="boton-personalizado-2 fuente" (click)="consulta('Todo')">Ver Todas</button>
 </td>
 <div *ngFor='let item of initialBaseTemp' style="margin-left: 5px; background:#2114941c;">
     <div style="margin-left: 10px">
-        <pre>{{item.id}} - {{item.pregunta}}</pre>
-        <pre>{{item.respuesta}}</pre>
+        <strong >{{item.estado_vigente}}</strong><textarea style="width: 100%;height: auto;" disabled>{{item.id}}  - {{item.pregunta}}</textarea>
+        
+        <textarea style="width: 95%;height: 120%;" disabled>{{item.respuesta}}</textarea>
     </div>                        
 </div>

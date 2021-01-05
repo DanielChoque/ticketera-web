@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers } from '@angular/http';
 import { HttpClient, } from '@angular/common/http';
+import { Token } from '../model/modelos';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ export class ConectionService {
 
   constructor(private http: Http,private httpClient: HttpClient) { }
   option(){
+    var token=new Token()
+    token=JSON.parse(localStorage.getItem('token'))
     let headerDict = {
-      'Authorization': 'Token c17aaabf30f5d54baf85ae586cddbc5b7576a822',
+      'Authorization': 'Token '+token.token,
     }
     
     let requestOptions = {                                                                                                                                                                                 
@@ -42,6 +45,18 @@ export class ConectionService {
 
   servBase(){
     let url =this.url + "api/1.0/base/";
+    return this.http.get(url,this.option());
+  }
+  servTicketArea(){
+    let url =this.url + "api/1.0/ticketarea/";
+    return this.http.get(url,this.option());
+  }
+  servAuth(user){
+    let url =this.url + "api_generate_token/"
+    return this.http.post(url,user,null);
+  }
+  servPunto(){
+    let url =this.url + "api/1.0/punto/"
     return this.http.get(url,this.option());
   }
 }

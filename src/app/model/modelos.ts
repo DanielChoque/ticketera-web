@@ -25,14 +25,47 @@ export class Area {
     cod
     nombre
 }
-
+export class Usuario{
+    id
+    username
+    password
+    last_name
+    first_name
+}
+export class Token{
+    user
+    token    
+}
+export class Ventanilla{
+    id
+    cod
+    nombre
+}
+export class Oficina{
+    id
+    cod
+    nombre
+}
 
 //Relacionados
-
 export class TipoTramite{
     area:Area=new Area()
     tramite:Tramite=new Tramite()
     subTramite:SubTramite=new SubTramite()
+}
+export class Plataforma{
+    area:Area=new Area()
+    oficina:Oficina=new Oficina()    
+}
+export class Punto{
+    usuario:Usuario=new Usuario()
+    ventanilla:Ventanilla=new Ventanilla()
+    plataforma:Plataforma=new Plataforma()
+}
+
+export class TicketArea{
+    area:Area=new Area()
+    ticket:Ticket=new Ticket()    
 }
 
 
