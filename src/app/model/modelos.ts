@@ -46,7 +46,11 @@ export class Oficina{
     cod
     nombre
 }
-
+export class Cliente {
+    id
+    nit
+    nombre
+}
 //Relacionados
 export class TipoTramite{
     area:Area=new Area()
@@ -94,3 +98,28 @@ export class Base{
     verificado_cite_gf 
     verificado_cite_gre
 }
+
+
+//Registros Diarios 
+export class Atencion{
+    cliente:Cliente = new Cliente()
+    punto:Punto =new Punto()
+    ticket:Ticket = new Ticket()
+    correlativo:number
+    inicio:string
+    inicioHora:string
+    finalHora:string
+    modificado:Date = new Date()
+}
+
+export class AtencionTramite{
+    atencion:Atencion = new Atencion()
+    tipoTramite:TipoTramite = new TipoTramite()
+    inicio:string
+    inicioHora:string
+    finalHora:string
+    modificado:Date = new Date()
+
+
+}
+

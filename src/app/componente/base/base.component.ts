@@ -25,9 +25,12 @@ export class BaseComponent implements OnInit {
     //console.log(a)
     console.log("acc:"+acc);
     if(acc=="Todo"){
-
       this.initialBaseTemp = JSON.parse(localStorage.getItem("base"));
     }    
+    if(acc=="Limpiar"){
+      this.consultaText = ""
+      this.initialBaseTemp=new Array<Base>()
+    }
   }
 
   findMatches(wordToSearch, cities) {

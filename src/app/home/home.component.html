@@ -1,3 +1,4 @@
+<button class="boton-personalizado-2 fuente" (click)="iniciarDatos()" style="font-size: 22px; margin-left: 10%;"  [hidden]= "popup_g">Iniciar</button>
 <div align='center' style="background:rgb(219, 218, 218);" [hidden]="tickethidden">    
     <br>
 
@@ -5,14 +6,14 @@
         <div class="left">
             <div class="content">
                 <div *ngFor='let item of initialTicketN'>
-                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.descripcion)">{{item.descripcion}} ({{item.cod}})</button></tr>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'n')">{{item.descripcion}} ({{item.cod}})</button></tr>
                 </div>
             </div>
         </div>
         <div class="right">
             <div class="content">
                 <div *ngFor='let item of initialTicketP'>
-                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.descripcion)">{{item.descripcion}}</button></tr>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'p')">{{item.descripcion}}</button></tr>
                 </div>
             </div>
         </div>
@@ -25,14 +26,14 @@
         <br>
         <tr> 
             <td><span class="fuente">NIT/CI </span></td> 
-            <td><input type="number" name="" id=""></td>                      
+            <td><input type="text" name="nit" [(ngModel)]="nit" id="nit"></td>                      
             <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Finalizar')">Finalizar</button></td>
             <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Cancelar')" style="background-color:#000000;">Cancelar</button></td>  
         </tr>
         <tr>
             <td><span class="fuente">Nombre </span></td>
-            <td><input type="text" name="" id=""></td>
-            <td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Puasar')"> Puasar </button></td>
+            <td><input type="text" name="cNombre" [(ngModel)]="cNombre" id="cNombre"></td>
+            <!--td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Puasar')"> Observación</button></td-->
             <td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Abandono')" style="background-color:#000000;">Abandono</button></td>
         </tr>
         <br>
@@ -53,7 +54,7 @@
     
     <div *ngFor='let item of initialTipoTramiteTemp' style="margin-left: 5px;">
         <div [ngStyle]="colorStyle(item.subTramite.id)">
-            <input type="checkbox" name="" id="" ><span class="fuente">{{item.subTramite.descripcion}} </span> 
+            <input type="checkbox" name="" id="" (click)="addSubTramite(item.subTramite , $event)"><span class="fuente">{{item.subTramite.descripcion}} </span> 
         </div>                        
     </div>
 </div>

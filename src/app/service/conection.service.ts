@@ -9,7 +9,7 @@ import { Token } from '../model/modelos';
 export class ConectionService {
   public NetWorkUrl="http://10.1.43.39/tiketera/sinapp.servicios/";
   //public url="http://10.1.43.160:8000/"
-  public url="http://127.0.0.1:8000/"
+  public url="http://127.0.0.1:8000/pag/"
 
 
   constructor(private http: Http,private httpClient: HttpClient) { }
@@ -58,5 +58,10 @@ export class ConectionService {
   servPunto(){
     let url =this.url + "api/1.0/punto/"
     return this.http.get(url,this.option());
+  }
+
+  servAtencion(atem){
+    let url =this.url + "create_atencion/"
+    return this.http.post(url,atem,this.option());
   }
 }

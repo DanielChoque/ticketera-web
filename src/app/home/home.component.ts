@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConectionService } from '../service/conection.service';
-import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base, TicketArea} from '../model/modelos';
+import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base, TicketArea, Cliente, Punto, Atencion, Token, AtencionTramite} from '../model/modelos';
 import { Resultado } from '../model/resultado';
+import { tick } from '@angular/core/testing';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { Resultado } from '../model/resultado';
 export class HomeComponent implements OnInit {
 
   tickethidden:boolean=false
+  popup_g:boolean=false
   
   initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();
@@ -23,25 +25,45 @@ export class HomeComponent implements OnInit {
   arrayTram=[]
   respuesta: Resultado
   vectorT:Array<Vector> = new Array<Vector>();
-
+  inicialToken: Array<Token> =new Array<Token>();
   initialTipoTramite: Array<TipoTramite> =new Array<TipoTramite>();  
   initialTipoTramiteTemp: Array<TipoTramite> =new Array<TipoTramite>();  
 
   initialTicketN: Array<Ticket> =new Array<Ticket>(); 
   initialTicketP: Array<Ticket> =new Array<Ticket>(); 
   initialTicketArea: Array<TicketArea> =new Array<TicketArea>();
+  initialAtencionTramite: Array<AtencionTramite> =new Array<AtencionTramite>();
+  initialAtencionTramiteTemp: Array<AtencionTramite> =new Array<AtencionTramite>();
+
   area:Area=new Area()
   tipoTramite:TipoTramite = new TipoTramite()
   subTramite:SubTramite = new SubTramite()
+  cliente:Cliente =new Cliente()
+  punto:Punto=new Punto()
+  ticket:Ticket = new Ticket()
+  correlativo:number
+  inicio:string
+  inicioHora:string
+  finalHora:string
+  modificado:Date = new Date()
+  cNombre:string
+  nit:string
+  atencion:Atencion = new Atencion()
+  atencionTramite:AtencionTramite = new AtencionTramite()
   //ngStyle: { [klass: string]: any; }
-  color="red"
+
+  
 
 
   i=0;
   constructor(private servItemService:ConectionService) { }
 
   ngOnInit() {
-    this.iniciarDatos()
+    this.inicialToken = JSON.parse(localStorage.getItem("token"));
+    if(this.inicialToken!=undefined){
+      this.popup_g=true
+      this.iniciarDatos()
+    }
   }
 
   consultaSubTramite(){
@@ -103,15 +125,67 @@ export class HomeComponent implements OnInit {
       error=>console.log(error)
     )
   }
-  consulta(num){
-    console.log(num)
+  consulta(id,tipo){
+    console.log(id+" tipo:"+tipo)
+    this.initialTicketArea.forEach(element => {
+      if(element.ticket.id==id){
+        this.ticket=element.ticket
+      }
+    });
+    //this.ticket=
+    let fecha:Date = new Date()
+    this.inicio = fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+fecha.getDate()   
+    this.inicioHora=""+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
     this.tickethidden=true
+  }
+  postAtencion(atencion){
+    this.servItemService.servAtencion(atencion).subscribe(
+      res=>{        
+        var resp=JSON.parse(JSON.stringify(res))._body;        
+        var ddd=JSON.parse(resp)
+        console.log(ddd+" res:"+res.status)                        
+        if(res.status==200){
+
+        }
+      },
+      error=>{
+        console.log(error)
+      }
+    )
   }
 
   tareaTicket(acc){
     console.log(acc)
-    if(acc=="Finalizar")
+    if(acc=="Finalizar"){
+      this.cliente.nit=this.nit
+      this.cliente.nombre=this.cNombre
+      this.atencion.cliente=this.cliente
+      this.atencion.punto=JSON.parse(localStorage.getItem('punto'))
+      this.atencion.ticket=this.ticket
+      this.atencion.correlativo=this.correlativo
+      this.atencion.inicio=this.inicio
+      this.atencion.inicioHora=this.inicioHora
+      let fecha:Date = new Date()
+      this.atencion.finalHora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
+      this.atencion.modificado = new Date()
+
+
+      this.atencionTramite.atencion
+      this.atencionTramite.tipoTramite
+      this.atencionTramite.inicio = this.inicio
+      this.atencionTramite.inicioHora = this.inicioHora
+      this.atencionTramite.finalHora =fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
+      this.atencionTramite.modificado = new Date()
+
+      localStorage.setItem('atencion',JSON.stringify(this.atencion))
+      console.log(this.atencionTramite)
+
+      this.postAtencion(this.atencion)
+      console.log(this.atencion)
+      this.vaciarDatos()
+
       this.tickethidden=false
+    }
     if(acc=="Abandono")
       this.tickethidden=false
     if(acc=="Cancelar")
@@ -158,7 +232,8 @@ export class HomeComponent implements OnInit {
     });
     this.initialTramite=this.removeDuplicate(this.initialTramiteTemp)
   }
-  uniqueSet:Array<Tramite>= new Array<Tramite>()
+
+
   removeDuplicate(dupli:Array<Tramite>){
     const flag={};
     const unique =[];
@@ -172,7 +247,29 @@ export class HomeComponent implements OnInit {
     });
     return uniqueArray;
   }
-c=0
+  addSubTramite(id,event){
+    if(event.target.checked==true){  }
+  }
+
+
+
+
+  iniciarDatos(){
+    //window.location.reload();
+    this.popup_g=true
+    console.log(this.popup_g)
+    this.llenarTicket()
+    this.llenarTramite()
+  }
+
+  vaciarDatos(){
+    this.initialTramiteTemp= new Array<Tramite>()
+    this.initialTipoTramiteTemp = new Array<TipoTramite>();
+    this.llenarTramite()
+    this.cNombre=""
+    this.nit=""
+  }
+
   colorStyle(id){
     if(id % 2 == 0) {
       return {'background-color':'#0505051c'}
@@ -180,10 +277,5 @@ c=0
     else {
       return {'background-color':'#00000000'}
     }
-  }
-
-  iniciarDatos(){
-    this.llenarTicket()
-    this.llenarTramite()
   }
 }
