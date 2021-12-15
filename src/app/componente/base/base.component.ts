@@ -46,6 +46,16 @@ export class BaseComponent implements OnInit {
       this.consulta(this.consultaText)
     }
   }
-
+  
+  colorStyleSw(swColor){
+   // console.log("swColor:"+swColor)
+    if(swColor == "NO VIGENTE") {
+      return {background: 'red', color: 'white'}
+    }
+    else {
+     // return {background: 'black', color: 'white'}
+      //return {'background-color':'#00000000'}
+    }
+  }
 
 }

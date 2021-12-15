@@ -8,8 +8,9 @@ import { Token } from '../model/modelos';
 })
 export class ConectionService {
   public NetWorkUrl="http://10.1.43.39/tiketera/sinapp.servicios/";
-  //public url="http://10.1.43.160:8000/"
-  public url="http://127.0.0.1:8000/pag/"
+  public url="http://10.1.26.162:8080/"
+  //public url="http://127.0.0.1:8080/pag/"
+  //public url="http://127.0.0.1:8080/"
 
 
   constructor(private http: Http,private httpClient: HttpClient) { }
@@ -62,6 +63,12 @@ export class ConectionService {
 
   servAtencion(atem){
     let url =this.url + "create_atencion/"
+    //let url =this.url + "pp/"
     return this.http.post(url,atem,this.option());
+  }
+  servTime(){
+    //let url =this.url + "create_atencion/"
+    let url =this.url + "fecha/"
+    return this.http.get(url,this.option());
   }
 }

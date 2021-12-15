@@ -9,7 +9,7 @@
 </td>
 <div *ngFor='let item of initialBaseTemp' style="margin-left: 5px; background:#2114941c;">
     <div style="margin-left: 10px">
-        <strong >{{item.estado_vigente}}</strong><textarea style="width: 100%;height: auto;" disabled>{{item.id}}  - {{item.pregunta}}</textarea>
+        <strong [ngStyle]="colorStyleSw(item.estado_vigente)">{{item.estado_vigente}}</strong><textarea style="width: 100%;height: auto;" disabled>{{item.id}}  - {{item.pregunta}}</textarea>
         
         <textarea style="width: 95%;height: 120%;" disabled>{{item.respuesta}}</textarea>
     </div>                        

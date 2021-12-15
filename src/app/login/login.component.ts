@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
       res=>{        
         var resp=JSON.parse(JSON.stringify(res))._body;        
         var ddd=JSON.parse(resp)
+        
         console.log(ddd+" res:"+res.status)                        
         if(res.status==200){
           this.errorNP=true
@@ -101,6 +102,7 @@ export class LoginComponent implements OnInit {
     var token=new Token()
     token=JSON.parse(localStorage.getItem('token'))
     this.inicialPunto.forEach(element => {
+      console.log(element.usuario.id)
       if(element.usuario.id==token.user){
         localStorage.setItem('punto',JSON.stringify(element))
         this.iniciarDatos()

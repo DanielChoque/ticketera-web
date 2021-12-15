@@ -6,14 +6,14 @@
         <div class="left">
             <div class="content">
                 <div *ngFor='let item of initialTicketN'>
-                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'n')">{{item.descripcion}} ({{item.cod}})</button></tr>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'n')"> {{item.descripcion}} </button></tr>
                 </div>
             </div>
         </div>
         <div class="right">
             <div class="content">
                 <div *ngFor='let item of initialTicketP'>
-                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'p')">{{item.descripcion}}</button></tr>
+                    <tr><button class="boton-personalizado-2 fuente" (click)=" consulta(item.id,'p')"> {{item.descripcion}}</button></tr>
                 </div>
             </div>
         </div>
@@ -24,22 +24,25 @@
 <div [hidden]="!tickethidden">
     <div style="margin-left: 5px; background:#0505051c;">
         <br>
-        <tr> 
-            <td><span class="fuente">NIT/CI </span></td> 
-            <td><input type="text" name="nit" [(ngModel)]="nit" id="nit"></td>                      
-            <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Finalizar')">Finalizar</button></td>
-            <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Cancelar')" style="background-color:#000000;">Cancelar</button></td>  
-        </tr>
-        <tr>
-            <td><span class="fuente">Nombre </span></td>
-            <td><input type="text" name="cNombre" [(ngModel)]="cNombre" id="cNombre"></td>
-            <!--td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Puasar')"> Observación</button></td-->
-            <td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Abandono')" style="background-color:#000000;">Abandono</button></td>
-        </tr>
+        <table >
+            <tr> 
+                <td></td> 
+                <td><span class="fuente">NIT/CI :</span><input type="text" name="nit" [(ngModel)]="nit" id="nit"></td>                      
+                <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Finalizar')" style="background-color:green;">FINALIZAR</button></td>
+                <td><button class="boton-personalizado-2 fuente" (click)="tareaTicket('Cancelar')" style="background-color:black;">CANCELAR</button></td>  
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="fuente">NOMBRE :</span><input type="text" name="cNombre" [(ngModel)]="cNombre" id="cNombre"></td>
+                <!--td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Puasar')"> Observación</button></td-->
+                <td><button class="boton-personalizado-2 fuente" (click)=" tareaTicket('Abandono')" style="background-color:red;">ABANDONO</button></td>
+            </tr>
+        </table>
+
         <br>
     </div>
     <div align='center' style="background: #1475b8;">
-        <span class="fuente" style="color: white; font-size: 25px;">Trámite Primario</span>
+        <span class="fuente" style="color: white; font-size: 25px;">TRÁMITE PRIMARIO</span>
     </div>
     
     <div *ngFor='let item of initialTramite' style="margin-left: 5px; background:#0505051c;">
@@ -49,11 +52,12 @@
     </div> 
     
     <div align='center' style="background:navy;">
-        <span class="fuente" style="color: white; font-size: 20px;">Trámite Secundario</span>
+        <span class="fuente" style="color: white; font-size: 20px;">TRÁMITE SECUNDARIO</span>
     </div>
     
     <div *ngFor='let item of initialTipoTramiteTemp' style="margin-left: 5px;">
         <div [ngStyle]="colorStyle(item.subTramite.id)">
+        <!--div [ngStyle]="colorStyleSw()"-->
             <input type="checkbox" name="" id="" (click)="addSubTramite(item.subTramite , $event)"><span class="fuente">{{item.subTramite.descripcion}} </span> 
         </div>                        
     </div>

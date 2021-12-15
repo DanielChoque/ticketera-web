@@ -18,13 +18,15 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NgxTimerModule } from 'ngx-timer';
 import { BaseComponent } from './componente/base/base.component';
+import { ReportComponent } from './componente/report/report.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    BaseComponent
+    BaseComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

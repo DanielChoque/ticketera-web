@@ -110,6 +110,7 @@ export class Atencion{
     inicioHora:string
     finalHora:string
     modificado:Date = new Date()
+    tipoAtencion=new Array<TipoTramite>()
 }
 
 export class AtencionTramite{
@@ -123,3 +124,6 @@ export class AtencionTramite{
 
 }
 
+export class InicioHora{
+    inicioHora        
+}

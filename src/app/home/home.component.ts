@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConectionService } from '../service/conection.service';
-import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base, TicketArea, Cliente, Punto, Atencion, Token, AtencionTramite} from '../model/modelos';
+import { Tramite,SubTramite,Ticket, TipoTramite, Area, Vector , Base, TicketArea, Cliente, Punto, Atencion, Token, AtencionTramite, InicioHora} from '../model/modelos';
 import { Resultado } from '../model/resultado';
 import { tick } from '@angular/core/testing';
 
@@ -137,6 +137,17 @@ export class HomeComponent implements OnInit {
     this.inicio = fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+fecha.getDate()   
     this.inicioHora=""+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
     this.tickethidden=true
+    this.servItemService.servTime().subscribe(
+      res=>{
+        //console.log(res)   
+        var time=JSON.parse(JSON.stringify(res))._body; 
+        localStorage.setItem('inicioHora',time)
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+    
   }
   postAtencion(atencion){
     this.servItemService.servAtencion(atencion).subscribe(
@@ -144,7 +155,7 @@ export class HomeComponent implements OnInit {
         var resp=JSON.parse(JSON.stringify(res))._body;        
         var ddd=JSON.parse(resp)
         console.log(ddd+" res:"+res.status)                        
-        if(res.status==200){
+        if(res.status==201){
 
         }
       },
@@ -157,31 +168,8 @@ export class HomeComponent implements OnInit {
   tareaTicket(acc){
     console.log(acc)
     if(acc=="Finalizar"){
-      this.cliente.nit=this.nit
-      this.cliente.nombre=this.cNombre
-      this.atencion.cliente=this.cliente
-      this.atencion.punto=JSON.parse(localStorage.getItem('punto'))
-      this.atencion.ticket=this.ticket
-      this.atencion.correlativo=this.correlativo
-      this.atencion.inicio=this.inicio
-      this.atencion.inicioHora=this.inicioHora
-      let fecha:Date = new Date()
-      this.atencion.finalHora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
-      this.atencion.modificado = new Date()
+      this.setAtencion()     
 
-
-      this.atencionTramite.atencion
-      this.atencionTramite.tipoTramite
-      this.atencionTramite.inicio = this.inicio
-      this.atencionTramite.inicioHora = this.inicioHora
-      this.atencionTramite.finalHora =fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
-      this.atencionTramite.modificado = new Date()
-
-      localStorage.setItem('atencion',JSON.stringify(this.atencion))
-      console.log(this.atencionTramite)
-
-      this.postAtencion(this.atencion)
-      console.log(this.atencion)
       this.vaciarDatos()
 
       this.tickethidden=false
@@ -192,6 +180,8 @@ export class HomeComponent implements OnInit {
       this.tickethidden=false
   }
 
+  swStylw:boolean=false
+  swContador:number=0
   subTramiteLLenar(id,event){
     if(event.target.checked==true){      
       this.initialTipoTramite.forEach(element => {  
@@ -200,6 +190,8 @@ export class HomeComponent implements OnInit {
           this.initialTipoTramiteTemp.push(element)
         }
       });
+      this.swStylw=true
+      this.swContador++
     }
     else{
       this.initialSubTramiteTemp = new Array<SubTramite>();
@@ -210,7 +202,8 @@ export class HomeComponent implements OnInit {
           this.initialSubTramiteTemp.push(element.subTramite)
           this.initialTipoTramiteTemp.push(element)
         }
-      });      
+      }); 
+      this.swContador--     
     }
   }
 
@@ -247,8 +240,26 @@ export class HomeComponent implements OnInit {
     });
     return uniqueArray;
   }
+  initialTipoTramiteSend = new Array<TipoTramite>();
+  initialTipoTramiteSendTemp = new Array<TipoTramite>();
   addSubTramite(id,event){
-    if(event.target.checked==true){  }
+    if(event.target.checked==true){           
+      this.initialTipoTramite.forEach(element => {  
+        if(id.id==element.subTramite.id){
+          this.initialTipoTramiteSend.push(element)
+        }
+      });
+    }
+    else{      
+      var aux =this.initialTipoTramiteSend
+      this.initialTipoTramiteSend = new Array<TipoTramite>();
+      aux.forEach(element => {
+        if(id.id!=element.subTramite.id){
+          this.initialTipoTramiteSend.push(element)
+        }
+      });
+    }
+    console.log(this.initialTipoTramiteSend)
   }
 
 
@@ -277,5 +288,46 @@ export class HomeComponent implements OnInit {
     else {
       return {'background-color':'#00000000'}
     }
+  }
+  colorStyleSw(){
+    if(this.swContador % 2 == 0) {
+      return {'background-color':'#0505051c'}
+    }
+    else {
+      return {'background-color':'#00000000'}
+    }
+  }
+  setAtencion(){
+    var inicioHora=new InicioHora()
+    inicioHora=JSON.parse(localStorage.getItem('inicioHora'))
+    this.cliente.nit=this.nit
+    this.cliente.nombre=this.cNombre
+    this.atencion.cliente=this.cliente
+    this.atencion.punto=JSON.parse(localStorage.getItem('punto'))
+    this.atencion.ticket=this.ticket
+    this.atencion.correlativo=this.correlativo
+    this.atencion.inicio=this.inicio
+    this.atencion.inicioHora=inicioHora.inicioHora
+    let fecha:Date = new Date()
+    this.atencion.finalHora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
+    this.atencion.modificado = new Date()
+    this.atencion.tipoAtencion=this.initialTipoTramiteSend
+
+    this.atencionTramite.atencion
+    this.atencionTramite.tipoTramite
+    this.atencionTramite.inicio = this.inicio
+    
+
+    //console.log(inicioHora.inicioHora)
+    this.atencionTramite.inicioHora = inicioHora.inicioHora
+    this.atencionTramite.finalHora =fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds()
+    this.atencionTramite.modificado = new Date()
+
+    localStorage.setItem('atencion',JSON.stringify(this.atencion))
+    console.log(this.atencionTramite)
+
+    this.postAtencion(this.atencion)
+    console.log(this.atencion)
+    return true
   }
 }
