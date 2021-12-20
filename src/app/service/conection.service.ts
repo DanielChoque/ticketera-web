@@ -8,7 +8,8 @@ import { Token } from '../model/modelos';
 })
 export class ConectionService {
   public NetWorkUrl="http://10.1.43.39/tiketera/sinapp.servicios/";
-  public url="http://10.1.26.162:8080/"
+  //public url="http://10.1.26.162:8080/"
+  public url =" http://sac.impuestos.gob.bo:8080/pag/"
   //public url="http://127.0.0.1:8080/pag/"
   //public url="http://127.0.0.1:8080/"
 

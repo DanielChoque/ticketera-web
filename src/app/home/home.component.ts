@@ -178,6 +178,7 @@ export class HomeComponent implements OnInit {
       this.tickethidden=false
     if(acc=="Cancelar")
       this.tickethidden=false
+      this.vaciarDatos()
   }
 
   swStylw:boolean=false
