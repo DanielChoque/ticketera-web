@@ -19,6 +19,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgxTimerModule } from 'ngx-timer';
 import { BaseComponent } from './componente/base/base.component';
 import { ReportComponent } from './componente/report/report.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -42,8 +47,12 @@ import { ReportComponent } from './componente/report/report.component';
     NgxTimerModule,
     HttpClientModule,HttpModule,
     FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [MatDatepickerModule,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

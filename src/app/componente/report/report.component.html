@@ -1,6 +1,49 @@
 
+<!--mat-form-field>
+  <input matInput [matDatepicker]="pickerD" placeholder="Desde">
+  <mat-datepicker-toggle matSuffix [for]="pickerD"></mat-datepicker-toggle>
+  <mat-datepicker #pickerD ></mat-datepicker>
+</mat-form-field>
+<label for="appt">Horas:</label>
+<input type="time" id="horaIni" name="horaIni"
+       value="00:00"  required>
+<br>
+<mat-form-field>
+  <input matInput [matDatepicker]="pickerH" placeholder="Hasta">
+  <mat-datepicker-toggle matSuffix [for]="pickerH"></mat-datepicker-toggle>
+  <mat-datepicker #pickerH></mat-datepicker>
+</mat-form-field>
+<label for="appt">Horas:</label>
+<input type="time" id="horaFinal" name="horaFinal" [(ngModel)]="horaFinal"
+       value="23:59" required-->
+<!--small>Office hours are 9am to 6pm</small-->
 
+  <br>
+  <br>
 
-<button class="boton-personalizado-2 fuente" (click)="downloadPDF()" style="background-color:green;">Generar</button>
+  <mat-form-field appearance="fill">
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="picker"
+           (dateInput)="addEventD('input', $event)" (dateChange)="addEventD('change', $event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+<br>
 
-<a class="boton-personalizado-2 fuente" href="http://10.1.43.236/pruebas-pdf/pdf.php" [hidden]="impr">imprimir</a>
+  <mat-form-field appearance="fill">
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="pickerHa"
+           (dateInput)="addEventH('input', $event)" (dateChange)="addEventH('change', $event)">
+    <mat-datepicker-toggle matSuffix [for]="pickerHa"></mat-datepicker-toggle>
+    <mat-datepicker #pickerHa></mat-datepicker>
+  </mat-form-field>
+  
+  <!--div class="example-events">
+    <div *ngFor="let e of events">{{e}}</div>
+  </div-->
+
+  <br>
+  <br>
+<button class="boton-personalizado-2 fuente" (click)="generatePDF()" style="background-color:green;">Generar</button>
+
+<a class="boton-personalizado-2 fuente" href="https://sac.impuestos.gob.bo/pruebas-pdf/pdf.php" [hidden]="impr"  target="_blank"  (click)="downloadPDF()">Ver</a>

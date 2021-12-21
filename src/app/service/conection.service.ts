@@ -8,10 +8,12 @@ import { Token } from '../model/modelos';
 })
 export class ConectionService {
   public NetWorkUrl="http://10.1.43.39/tiketera/sinapp.servicios/";
-  //public url="http://10.1.26.162:8080/"
-  //public url =" http://sac.impuestos.gob.bo:8080/pag/"
+  //public urlp="http://10.1.26.162"
+  public urlp="http://sac.impuestos.gob.bo" 
+  //public url=this.urlp+":8080/"
+  public url =" http://sac.impuestos.gob.bo:8080/pag/"
   //public url="http://127.0.0.1:8080/pag/"
-  public url="http://10.1.43.236:8080/"
+  //public url="http://10.1.43.236:8080/"
 
 
   constructor(private http: Http,private httpClient: HttpClient) { }
@@ -73,8 +75,9 @@ export class ConectionService {
     return this.http.get(url,this.option());
   }
   servReporte(atem){
+    this.urlp="https://sac.impuestos.gob.bo" 
     let url =this.url + "create_atencion/"
     //let url =this.url + "pp/"
-    return this.http.post("http://10.1.43.236/pruebas-pdf/pp.php",atem);
+    return this.http.post(this.urlp+"/pruebas-pdf/pp.php",atem);
   }
 }
