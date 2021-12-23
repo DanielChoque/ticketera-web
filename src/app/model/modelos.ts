@@ -62,6 +62,7 @@ export class Plataforma{
     oficina:Oficina=new Oficina()    
 }
 export class Punto{
+    id
     usuario:Usuario=new Usuario()
     ventanilla:Ventanilla=new Ventanilla()
     plataforma:Plataforma=new Plataforma()

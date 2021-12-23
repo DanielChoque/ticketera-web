@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario,Token,Punto, Base, TicketArea, TipoTramite, Tramite } from '../model/modelos';
+import { Usuario,Token,Punto, Base, TicketArea, TipoTramite, Tramite, Oficina } from '../model/modelos';
 import { ConectionService } from '../service/conection.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   initialTipoTramite:  Array<TipoTramite> =new Array<TipoTramite>(); 
   initialTipoTramiteTemp:  Array<TipoTramite> =new Array<TipoTramite>();
   initialTramite:Array<Tramite> = new Array<Tramite>();
-  
+  initialOficina: Array<Oficina> =new Array<Oficina>(); 
   punto:Punto=new Punto()
   ticketArea:TicketArea=new TicketArea()
 
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
     var token=new Token()
     token=JSON.parse(localStorage.getItem('token'))
     this.inicialPunto.forEach(element => {
-      console.log(element.usuario.id)
+      //console.log(element.usuario.id)
       if(element.usuario.id==token.user){
         localStorage.setItem('punto',JSON.stringify(element))
         this.iniciarDatos()
@@ -123,6 +123,17 @@ export class LoginComponent implements OnInit {
         var ddd=JSON.parse(resp)
         this.initialBase = ddd
         localStorage.setItem('base',JSON.stringify(this.initialBase))
+      },
+      error=>console.log(error)
+    )
+  }
+  consultaOficina(){
+    this.servItemService.servOfina().subscribe(
+      res=>{        
+        var resp=JSON.parse(JSON.stringify(res))._body;        
+        var ddd=JSON.parse(resp)
+        this.initialOficina = ddd
+        localStorage.setItem('oficina',JSON.stringify(this.initialOficina))
       },
       error=>console.log(error)
     )
@@ -179,6 +190,7 @@ export class LoginComponent implements OnInit {
       this.consultaBase()
       this.getTicketArea()
       this.consultarTipoTramite()
+      this.consultaOficina()
     }
   }
   refresh(): void {

@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   tickethidden:boolean=false
   popup_g:boolean=false
+  popup_T:boolean=true
   
   initialTicket: Array<Ticket> =new Array<Ticket>();  
   initialSubTramite:Array<SubTramite> = new Array<SubTramite>();
@@ -168,11 +169,18 @@ export class HomeComponent implements OnInit {
   tareaTicket(acc){
     console.log(acc)
     if(acc=="Finalizar"){
-      this.setAtencion()     
+      if(this.initialTipoTramiteSend.length>0){
+        this.setAtencion()     
 
-      this.vaciarDatos()
+        this.vaciarDatos()
+  
+        this.tickethidden=false
+      }else{
+        this.popup_T=false
+        console.log(this.nit+" "+this.cNombre)
+        //alert("Selecione un TRÁMITE SECUNDARIO")
+      }
 
-      this.tickethidden=false
     }
     if(acc=="Abandono")
       this.tickethidden=false
@@ -275,7 +283,9 @@ export class HomeComponent implements OnInit {
   }
 
   vaciarDatos(){
+    this.initialTramiteTemp=[]
     this.initialTramiteTemp= new Array<Tramite>()
+    this.initialTipoTramiteSend=[]
     this.initialTipoTramiteTemp = new Array<TipoTramite>();
     this.llenarTramite()
     this.cNombre=""
@@ -301,6 +311,10 @@ export class HomeComponent implements OnInit {
   setAtencion(){
     var inicioHora=new InicioHora()
     inicioHora=JSON.parse(localStorage.getItem('inicioHora'))
+    if(this.nit==undefined){
+      this.nit=""+0
+      this.cNombre="S/N"
+    }
     this.cliente.nit=this.nit
     this.cliente.nombre=this.cNombre
     this.atencion.cliente=this.cliente
@@ -327,8 +341,14 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('atencion',JSON.stringify(this.atencion))
     console.log(this.atencionTramite)
 
-    this.postAtencion(this.atencion)
+    this.postAtencion(this.atencion)   
     console.log(this.atencion)
     return true
   }
+
+  cerrarPopUp(){
+    this.popup_T=true
+    
+  }
+
 }

@@ -100,3 +100,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;      
   }
+  @media (max-width: 767px) {
+    .hidden-mobile {
+      display: none;
+    }
+}
