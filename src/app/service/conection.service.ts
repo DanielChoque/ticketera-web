@@ -8,13 +8,13 @@ import { Token } from '../model/modelos';
 })
 export class ConectionService {
   
-  //public ip="sac.impuestos.gob.bo"
-  //public urlp="https://"+this.ip  
-  //public url ="http://"+this.ip+":8080/pag/"
+  public ip="sac.impuestos.gob.bo"
+  public urlp="https://"+this.ip  
+  public url ="http://"+this.ip+":8080/pag/"
 
-  public ip="10.1.26.162"
-  public urlp="http://"+this.ip
-  public url ="http://"+this.ip+":8080/"
+  //public ip="10.1.26.162"
+  //public urlp="http://"+this.ip
+  //public url ="http://"+this.ip+":8080/"
 
 
 

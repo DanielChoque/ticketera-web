@@ -48,11 +48,11 @@
     <br>
     <br>
   <button class="boton-personalizado-2 fuente" (click)="generatePDF()" style="background-color:green;">Generar R-0054-01</button>
-  <button class="boton-personalizado-2 fuente" (click)="downloadPDF()" [hidden]="impr">Ver</button>
+  <button class="boton-personalizado-2 fuente" (click)="downloadPDF()" hidden>Ver</button>
   
   <a class="boton-personalizado-2 fuente" [href]="link"  [hidden]="impr"  target="_blank"  (click)="downloadPDF()">Ver</a>
   <form ngNoForm  [action]="link" method="POST"
-      target="_blank">
+      target="_blank" hidden>
       <input type="text">
        <button type="submit">Sumbmit</button>
   </form> 
