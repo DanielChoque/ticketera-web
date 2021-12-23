@@ -160,13 +160,28 @@ export class ReportComponent implements OnInit {
       error=>console.log(error)
     )
   }
-
-  data = 
-    {
-      id : 1,
-      agencia: "AGENCIA TRIBUTARIA CARANAVI",
-      inicioHora: "2021-12-10 11:05:45",
-      finalHora : "2021-12-10 13:32:45"
-    };
+  reporte(verb, url, data, target){
+    var form = document.createElement("form");
+        form.action = url;
+        form.method = verb;
+        form.target = target || "_self";
+        /*if (data) {
+            for (var key in data) {
+                var input = document.createElement("textarea");
+                input.name = key;
+                input.value = typeof data[key] === "object"
+                    ? JSON.stringify(data[key])
+                    : data[key];
+                form.appendChild(input);
+            }
+        }*/
+        //.appendChild();
+        form.append("contenido",  "ddddddddd");
+        form.style.display = 'none';
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+  }
+  
   
 }
