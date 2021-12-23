@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit {
         var resp=JSON.parse(JSON.stringify(res))._body;        
         var ddd=JSON.parse(resp)
         this.htmlString=JSON.stringify(ddd.contenido)
-        //console.log(JSON.stringify(ddd.contenido))  
+        console.log(JSON.stringify(ddd.contenido))  
         if(ddd.response=="si"){
           this.impr=false
         } 
@@ -94,7 +94,24 @@ export class ReportComponent implements OnInit {
     this.final=event.value
   }
   downloadPDF(){
-    this.servItemService
+    /*this.servItemService
+    var formData = new FormData();
+    formData.append("contenido",  "ddddddddd");
+    console.log(formData.getAll('contenido'))
+    var request = new XMLHttpRequest();
+    request.onreadystatechange=function(){
+      if (request.readyState === 4 && request.status ===200) {
+        
+  var new_window = window.open(null, '','_blank');
+  new_window.document.write(request.response);
+      }
+    }
+    
+    request.open("POST", "http://10.1.43.236/pruebas-pdf/pdf.php");
+    
+    request.send('{"contenido":'+this.htmlString+'}');
+    console.log("dow")*/
+    this.reporte('POST', 'http://10.1.43.236/pruebas-pdf/pdf.php', {contenido: this.htmlString},'_blank')
     this.limpiar()
   }
   iniciarDatos(){
@@ -148,7 +165,7 @@ export class ReportComponent implements OnInit {
         console.log(datos)       
         var resp=JSON.parse(JSON.stringify(res))._body;        
         var ddd=JSON.parse(resp)
-        //console.log(JSON.stringify(ddd.contenido))  
+        console.log(JSON.stringify(ddd.contenido))  
         if(ddd.response=="si"){
           this.impr=false
         } 
@@ -159,14 +176,28 @@ export class ReportComponent implements OnInit {
       },
       error=>console.log(error)
     )
-  }
-
-  data = 
-    {
-      id : 1,
-      agencia: "AGENCIA TRIBUTARIA CARANAVI",
-      inicioHora: "2021-12-10 11:05:45",
-      finalHora : "2021-12-10 13:32:45"
-    };
+  }  
   
+  reporte(verb, url, data, target){
+    var form = document.createElement("form");
+        form.action = url;
+        form.method = verb;
+        form.target = target || "_self";
+        /*if (data) {
+            for (var key in data) {
+                var input = document.createElement("textarea");
+                input.name = key;
+                input.value = typeof data[key] === "object"
+                    ? JSON.stringify(data[key])
+                    : data[key];
+                form.appendChild(input);
+            }
+        }*/
+        //.appendChild();
+        form.append("contenido",  "ddddddddd");
+        form.style.display = 'none';
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+  }
 }

@@ -12,7 +12,8 @@ export class ConectionService {
   //public urlp="https://"+this.ip  
   //public url ="http://"+this.ip+":8080/pag/"
 
-  public ip="10.1.26.162"
+  //public ip="10.1.26.162"
+  public ip="10.1.43.236"
   public urlp="http://"+this.ip
   public url ="http://"+this.ip+":8080/"
 
