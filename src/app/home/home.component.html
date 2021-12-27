@@ -48,7 +48,7 @@
     
     <div *ngFor='let item of initialTramite' style="margin-left: 5px; background:#0505051c;">
         <div style="margin-left: 10px">
-            <input type="checkbox" name="" id="" (click)="subTramiteLLenar(item.id , $event)"><span class="fuente"> {{item.descripcion}} </span> 
+            <input type="checkbox" name="" id="" (click)="subTramiteLLenar(item.id , $event)" ><span class="fuente" [ngStyle]="colorStyleSwTramite(item.descripcion)"> {{item.descripcion}} </span> 
         </div>                        
     </div> 
     

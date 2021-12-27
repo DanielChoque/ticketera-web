@@ -339,10 +339,10 @@ export class HomeComponent implements OnInit {
     this.atencionTramite.modificado = new Date()
 
     localStorage.setItem('atencion',JSON.stringify(this.atencion))
-    console.log(this.atencionTramite)
+    //console.log(this.atencionTramite)
 
     this.postAtencion(this.atencion)   
-    console.log(this.atencion)
+    //console.log(this.atencion)
     return true
   }
 
@@ -350,5 +350,13 @@ export class HomeComponent implements OnInit {
     this.popup_T=true
     
   }
-
+  colorStyleSwTramite(swColor){
+    
+     if(swColor == "LLENADO EXCLUSIVO DEL CALL CENTER (GSCCT - DSC)") {
+      //console.log(swColor)
+       return {background: 'red', color: 'white'}
+     }
+     else {
+     }
+   }
 }
