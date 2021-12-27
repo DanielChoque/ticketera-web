@@ -85,4 +85,9 @@ export class ConectionService {
     let url =this.url + "api/1.0/oficina/";
     return this.http.get(url,this.option());
   }
+  servReporte2(atem){
+
+    let url =this.url + "create_atencion/"
+    return this.http.post("http://10.1.43.236/pruebas-pdf/pp.php",atem);
+  }
 }

@@ -182,7 +182,8 @@ export class ReportComponent implements OnInit {
         form.action = url;
         form.method = verb;
         form.target = target || "_self";
-        /*if (data) {
+        form.enctype= "application/json";
+        if (data) {
             for (var key in data) {
                 var input = document.createElement("textarea");
                 input.name = key;
@@ -190,15 +191,66 @@ export class ReportComponent implements OnInit {
                     ? JSON.stringify(data[key])
                     : data[key];
                 form.appendChild(input);
+                //console.log(input.value)
             }
-        }*/
+        }
         //.appendChild();
-        form.append("contenido",  "ddddddddd");
+        /*var input = document.createElement("textarea");
+        input.name = "contenido";
+        input.id="contenido"
+        input.value = "daniel";
+        console.log(input.name)*/
+        console.log(form)
+        form.appendChild(input);
+        //form.append("contenido",  "ddddddddd");
         form.style.display = 'none';
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
   }
   
+  
+  generatePDF2(){
+    this.consultaReporte2()
+  }
+  consultaReporte2(){
+    this.punto=JSON.parse(localStorage.getItem("punto"))
+    
+    //var date =new Date(this.final.setHours(this.final.getHours()+19))
+    if(this.oficina==""){
+      this.oficina=this.punto.plataforma.oficina.nombre
+    }
+  
+    var datos={
+      "inicio":this.inicio,
+      "final":this.final,
+      "area":this.punto.plataforma.area.id,
+      "plataforma":this.oficina,
+      "responsable":this.punto.usuario.first_name+" "+this.punto.usuario.last_name,
+      "medio":this.punto.plataforma.area.nombre +" "+this.punto.plataforma.area.cod,
+      "punto":this.punto.id,
+      "tipo":this.tipo
+    }
+    this.servItemService.servReporte2(datos).subscribe(
+      res=>{ 
+        console.log(datos)       
+        var resp=JSON.parse(JSON.stringify(res))._body;        
+        var ddd=JSON.parse(resp)
+        this.htmlString=JSON.stringify(ddd.contenido)
+        console.log(this.htmlString)  
+        if(ddd.response=="si"){
+          this.impr=false
+        } 
+        else{
+          this.limpiar()
+        }
 
+      },
+      error=>console.log(error)
+    )
+  }
+  downloadPDF2(){
+    this.reporte('POST', 'http://10.1.43.236/pruebas-pdf/pdf.php', {contenido: this.htmlString},'_blank')
+    this.limpiar()
+  }
 }
