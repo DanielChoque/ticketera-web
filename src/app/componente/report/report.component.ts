@@ -176,8 +176,7 @@ export class ReportComponent implements OnInit {
       },
       error=>console.log(error)
     )
-  }  
-  
+  }
   reporte(verb, url, data, target){
     var form = document.createElement("form");
         form.action = url;
@@ -200,4 +199,6 @@ export class ReportComponent implements OnInit {
         form.submit();
         document.body.removeChild(form);
   }
+  
+
 }
