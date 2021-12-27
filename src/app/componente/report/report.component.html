@@ -1,22 +1,24 @@
 <div style="text-align: center;">
-  <button class="boton-personalizado-2 fuente" (click)="masDatos()"><div >Cambiar</div></button>
-<div [hidden]="hiddenOfic">
-  <div [hidden]="hiddenNac">
-    <div align='center' style="background: #1475b8;">
-      <span class="fuente" style="color: white; font-size: 25px;">OFICINAS</span>
-    </div>
-    <div class="ex1">
-      <div *ngFor='let item of initialOficina' style="margin-left: 5px; background:#0505051c;">
-        <div style="margin-left: 10px" style="background-color: white; text-align: left;">
-            <input type="radio" name="empleoactual" id="" (click)="subTramiteLLenar(item.id , $event)" ><span class="fuente"> {{item.nombre}} </span> 
-        </div>                        
+  <button class="boton-personalizado-2 fuente" (click)="masDatos()" ><div >Cambiar</div></button>
+<div [hidden]="hiddenJefeNacio">
+  <div [hidden]="hiddenOfic">
+    <div [hidden]="hiddenNac">
+      <div align='center' style="background: #1475b8;">
+        <span class="fuente" style="color: white; font-size: 25px;">OFICINAS</span>
+      </div>
+      <div class="ex1">
+        <div *ngFor='let item of initialOficina' style="margin-left: 5px; background:#0505051c;">
+          <div style="margin-left: 10px" style="background-color: white; text-align: left;">
+              <input type="radio" name="empleoactual" id="" (click)="subTramiteLLenar(item.id , $event)" ><span class="fuente"> {{item.nombre}} </span> 
+          </div>                        
+        </div>
       </div>
     </div>
-  </div>
-  <div align='center' [hidden]="hiddenAge">
-    <input type="radio" name="em" (click)="tipoR('punto', $event)" checked>Punto
-    <input type="radio" name="em" (click)="tipoR('agencia' , $event)">Agencia
-  
+    <div align='center' [hidden]="hiddenAge">
+      <input type="radio" name="em" (click)="tipoR('punto', $event)" checked>Punto
+      <input type="radio" name="em" (click)="tipoR('agencia' , $event)">Agencia
+    
+    </div>
   </div>
 </div>
    
@@ -41,23 +43,17 @@
       <mat-datepicker #pickerHa></mat-datepicker>
     </mat-form-field>
     
-    <!--div class="example-events">
-      <div *ngFor="let e of events">{{e}}</div>
-    </div-->
+
   
-    <br>
+    <!--br>
     <br>
   <button class="boton-personalizado-2 fuente" (click)="generatePDF()" style="background-color:green;">Generar R-0054-01</button>
   <button class="boton-personalizado-2 fuente" (click)="downloadPDF()" hidden>Ver</button>
   
-  <a class="boton-personalizado-2 fuente" [href]="link"  [hidden]="impr"  target="_blank"  (click)="downloadPDF()">Ver</a>
+  <a class="boton-personalizado-2 fuente" [href]="link"  [hidden]="impr"  target="_blank"  (click)="downloadPDF()">Ver</a-->
   <br>
   <br>
-  <!--button class="boton-personalizado-2 fuente" (click)="generatePDF2()" style="background-color:green;">Generar R-0054-01 2</button>
-  <button class="boton-personalizado-2 fuente" (click)="downloadPDF2()" >Generar R-0054-01 2</button>
-  <form ngNoForm  [action]="link" method="POST"
-      target="_blank" >
-      <input type="text">
-       <button type="submit">Sumbmit</button>
-  </form--> 
+  <button class="boton-personalizado-2 fuente" (click)="generatePDF2()" style="background-color:green;">Generar R-0054-01</button>
+  <button class="boton-personalizado-2 fuente" (click)="downloadPDF2()" [hidden]="impr">Ver</button>
+
 </div>

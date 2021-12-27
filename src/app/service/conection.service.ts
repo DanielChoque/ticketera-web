@@ -88,6 +88,6 @@ export class ConectionService {
   servReporte2(atem){
 
     let url =this.url + "create_atencion/"
-    return this.http.post("http://10.1.43.236/pruebas-pdf/pp.php",atem);
+    return this.http.post(this.urlp+"/reporte-pdf/pp.php",atem);
   }
 }

@@ -25,11 +25,14 @@ export class ReportComponent implements OnInit {
   hiddenOfic:boolean=true
   hiddenAge:boolean=true
   hiddenNac:boolean=true
+  hiddenJefeNacio:boolean=true
   link
+  linkP
   htmlString
   //constructor() { }
   constructor(private servItemService:ConectionService) {
     this.link=servItemService.urlp+"/pruebas-pdf/pdf.php"
+    this.linkP=servItemService.urlp+"/reporte-pdf/pdf.php"
    }
 
   ngOnInit() {
@@ -111,8 +114,8 @@ export class ReportComponent implements OnInit {
     
     request.send('{"contenido":'+this.htmlString+'}');
     console.log("dow")*/
-    this.reporte('POST', 'http://10.1.43.236/pruebas-pdf/pdf.php', {contenido: this.htmlString},'_blank')
-    this.limpiar()
+    /*this.reporte('POST', 'http://10.1.43.236/pruebas-pdf/pdf.php', {contenido: this.htmlString},'_blank')
+    this.limpiar()*/
   }
   iniciarDatos(){
     this.initialOficina = JSON.parse(localStorage.getItem("oficina"));
@@ -139,6 +142,15 @@ export class ReportComponent implements OnInit {
   masDatos(){
     this.iniciarDatos()
     this.hiddenOfic=false
+    if(this.punto.ventanilla.cod=="NAL"){
+      this.hiddenJefeNacio=false
+    }
+    if(this.punto.ventanilla.cod=="JDA"){
+      this.hiddenJefeNacio=false
+    }
+    if(this.punto.ventanilla.cod=="V1"){
+      this.hiddenJefeNacio=false
+    }
     console.log(this.punto.plataforma.oficina.cod)
     if(this.punto.plataforma.oficina.cod=="DSC"){
       this.hiddenNac=false
@@ -182,7 +194,7 @@ export class ReportComponent implements OnInit {
         form.action = url;
         form.method = verb;
         form.target = target || "_self";
-        form.enctype= "application/json";
+        //form.enctype= "application/json";
         if (data) {
             for (var key in data) {
                 var input = document.createElement("textarea");
@@ -200,7 +212,13 @@ export class ReportComponent implements OnInit {
         input.id="contenido"
         input.value = "daniel";
         console.log(input.name)*/
-        console.log(form)
+        var container = document.createElement("INPUT");
+        container.setAttribute("type", "text");
+        container.setAttribute("name", "contenido");
+        container.setAttribute("id", "contenido");
+        container.setAttribute("value", this.htmlString);
+        console.log(form);
+        form.appendChild(container);
         form.appendChild(input);
         //form.append("contenido",  "ddddddddd");
         form.style.display = 'none';
@@ -236,8 +254,8 @@ export class ReportComponent implements OnInit {
         console.log(datos)       
         var resp=JSON.parse(JSON.stringify(res))._body;        
         var ddd=JSON.parse(resp)
-        this.htmlString=JSON.stringify(ddd.contenido)
-        console.log(this.htmlString)  
+        this.htmlString=ddd.contenido
+        //console.log(this.htmlString)  
         if(ddd.response=="si"){
           this.impr=false
         } 
@@ -250,7 +268,7 @@ export class ReportComponent implements OnInit {
     )
   }
   downloadPDF2(){
-    this.reporte('POST', 'http://10.1.43.236/pruebas-pdf/pdf.php', {contenido: this.htmlString},'_blank')
+    this.reporte('POST', this.linkP, {contenidos: this.htmlString},'_blank')
     this.limpiar()
   }
 }
